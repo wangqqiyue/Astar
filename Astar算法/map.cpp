@@ -1,10 +1,6 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <astar.h>
 
-
-void printMap(struct node** map, int row, int col) {
+void Map::printMap() {
     int r, c;
     printf("======Map======\n");
     for (r = 0; r < row; r++) {
@@ -15,7 +11,7 @@ void printMap(struct node** map, int row, int col) {
     }
 }
 
-struct node** initMap(int* r, int* c) {
+void Map::initMap() {
     struct node** map;
     int row, col, i, j;
     char line[LINE_LEN] = { 0 };
@@ -44,7 +40,7 @@ struct node** initMap(int* r, int* c) {
             token = strtok_s(NULL, delim, &context);
         }
     }
-    *r = row;
-    *c = col;
-    return map;
+    this->map = map;
+    this->row = row;
+    this->col = col;
 }

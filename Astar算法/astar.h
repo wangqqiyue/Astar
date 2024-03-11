@@ -4,6 +4,12 @@
 #define GOAL        2
 #define UNWALKABLE  3
 #define WALKABLE    0
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <queue>
+
+using namespace std;
 
 struct node {
     int row;
@@ -13,7 +19,19 @@ struct node {
     int g;
     int h;
     struct node* parent = NULL;
+    friend bool operator<(node n1, node n2) {
+        return n1.f > n2.f;
+    }
 };
 
-void printMap(struct node** map, int row, int col);
-struct node** initMap(int* r, int* c);
+
+class Map {
+public:
+    int row, col;
+    node* start;
+    node* goal;
+    node** map;
+    void initMap();
+    void printMap();
+
+};
