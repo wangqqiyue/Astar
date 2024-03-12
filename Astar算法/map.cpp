@@ -37,10 +37,80 @@ void Map::initMap() {
         token = strtok_s(line, delim, &context);
         for (j = 0; j < col; j++) {
             map[i][j].walkable = atoi(token);
+            map[i][j].row = i;
+            map[i][j].col = j;
+            map[i][j].close = false;
+            map[i][j].open = false;
+            map[i][j].parent = NULL;
             token = strtok_s(NULL, delim, &context);
         }
     }
     this->map = map;
     this->row = row;
     this->col = col;
+}
+
+node* Map::getStart() {
+    int i, j;
+    if (start) {
+        return start;
+    }
+
+    for (i = 0; i < row; i++) {
+        for (j = 0; j < col; j++) {
+            if(START==map[i][j].walkable){
+                start= &map[i][j];
+                return start;
+            }
+        }
+    }
+}
+
+node* Map::getGoal() {
+    int i, j;
+    if (goal) {
+        return goal;
+    }
+
+    for (i = 0; i < row; i++) {
+        for (j = 0; j < col; j++) {
+            if(GOAL== map[i][j].walkable){
+                goal = &map[i][j];
+                return goal;
+            }
+        }
+    }
+}
+
+void Map::getNeibors(node* center, node** neibors) {
+    int r, c,i;
+    
+    for (i = 0; i < NEIBOR_NUM_MAX; i++) {
+        neibors[i] = NULL;
+    }
+
+    r = center->row;
+    c = center->col;
+
+    if (r > 0)
+        neibors[UP] = &map[r - 1][c];
+
+    if (r < row-1)
+        neibors[DOWN] = &map[r + 1][c];
+
+    if (c > 0)
+        neibors[LEFT] = &map[r][c - 1];
+
+    if (c < col-1)
+        neibors[RIGHT] = &map[r][c + 1];
+
+}
+
+void Map::printPath() {
+    node* n = goal;
+    while (n) {
+        n->walkable = PATH;
+        n = n->parent;
+    }
+    printMap();
 }
