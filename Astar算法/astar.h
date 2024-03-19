@@ -7,11 +7,11 @@
 using namespace std;
 
 #define LINE_LEN    64
-#define START       1
-#define GOAL        2
-#define UNWALKABLE  3
-#define PATH        4
-#define WALKABLE    0
+#define START       '1'
+#define GOAL        '2'
+#define UNWALKABLE  '3'
+#define PATH        '.'
+#define WALKABLE    '0'
 
 
 enum NEIBOR_MACRO {

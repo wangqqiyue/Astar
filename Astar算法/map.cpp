@@ -5,7 +5,7 @@ void Map::printMap() {
     printf("======Map======\n");
     for (r = 0; r < row; r++) {
         for (c = 0; c < col; c++) {
-            printf("%d ", map[r][c].walkable);
+            printf("%c ", map[r][c].walkable);
         }
         printf("\n");
     }
@@ -30,13 +30,13 @@ void Map::initMap() {
         map[i] = (struct node*)malloc(col * sizeof(struct node));
     }
 
-    printf("Please input Map content:\n");
+    printf("Please input Map content(%c is Start, %c is Goal, %c is walkable, %c is unwalkable):\n", START, GOAL, WALKABLE, UNWALKABLE);
     rewind(stdin);
     for (i = 0; i < row; i++) {
         fgets(line, LINE_LEN - 1, stdin);
         token = strtok_s(line, delim, &context);
         for (j = 0; j < col; j++) {
-            map[i][j].walkable = atoi(token);
+            map[i][j].walkable = token[0];
             map[i][j].row = i;
             map[i][j].col = j;
             map[i][j].close = false;
